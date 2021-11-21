@@ -5,9 +5,6 @@ import org.aeonbits.owner.Config;
 @Config.Sources({"classpath:config/selenide.properties"})
 public interface SelenideConfig extends Config {
 
-    @DefaultValue("https://${login}:${password}@${url}/wd/hub/")
-    String remoteUrl();
-
     @Key("selenide.login")
     String login();
 
@@ -16,4 +13,7 @@ public interface SelenideConfig extends Config {
 
     @Key("selenide.url")
     String url();
+
+    @DefaultValue("https://${selenide.login}:${selenide.password}@${selenide.url}/wd/hub/")
+    String remoteUrl();
 }

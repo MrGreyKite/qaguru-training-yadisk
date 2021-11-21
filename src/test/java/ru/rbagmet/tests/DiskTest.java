@@ -1,13 +1,15 @@
 package ru.rbagmet.tests;
 
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.rbagmet.TestBase;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.title;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DiskTest {
+public class DiskTest extends TestBase {
 
     @Test
     @DisplayName("Открыть страницу Диска")
@@ -18,4 +20,11 @@ public class DiskTest {
         String actualTitle = title();
         assertThat(actualTitle).isEqualTo(expectedTitle);
     }
+
+
+    @Test
+    void properties2(){
+        assertThat(Configuration.browser).isEqualTo(env.getBrowser());
+    }
+
 }
