@@ -10,15 +10,15 @@ import static org.aeonbits.owner.Config.LoadType.MERGE;
 public interface EnvConfig extends Config {
 
     @Key("browser.name")
-    //@DefaultValue("chrome")
+    @DefaultValue("chrome")
     String getBrowser();
 
     @Key("browser.version")
-//    @DefaultValue("96")
+    @DefaultValue("96")
     String getBrowserVersion();
 
     @Key("browser.remote")
-//    @DefaultValue("false")
+    @DefaultValue("false")
     Boolean isRemote();
 
 }
