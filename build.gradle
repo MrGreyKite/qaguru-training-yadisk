@@ -12,7 +12,7 @@ repositories {
 
 def allureVersion = "2.16.1",
     selenideVersion = "5.25.0",
-    junitVersion = "5.8.1"
+    junitVersion = "5.8.2"
 
 allure {
     version = allureVersion
@@ -34,17 +34,21 @@ dependencies {
             "io.qameta.allure:allure-junit5:$allureVersion",
             "org.assertj:assertj-core:3.21.0",
             "com.github.javafaker:javafaker:1.0.2",
-            "org.junit.jupiter:junit-jupiter-api:$junitVersion",
-            "org.aeonbits.owner:owner:1.0.12")
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "org.aeonbits.owner:owner:1.0.12",
+            "commons-io:commons-io:2.11.0")
     testRuntimeOnly(
             "org.slf4j:slf4j-simple:1.7.32",
-            "org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+            "org.junit.jupiter:junit-jupiter-engine:$junitVersion",
+            'com.browserup:browserup-proxy-core:2.1.2')
 
 }
 
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks.withType(Test) {
@@ -62,4 +66,28 @@ tasks.withType(Test) {
                 TestLogEvent.STANDARD_OUT
         exceptionFormat TestExceptionFormat.SHORT
         }
+		
+        systemProperties += [
+                'junit.jupiter.execution.parallel.enabled'                 : System.getProperty("RunInParallel"),
+                'junit.jupiter.execution.parallel.mode.default'            : 'concurrent',
+                'junit.jupiter.execution.parallel.mode.classes.default'    : 'concurrent',
+                'junit.jupiter.execution.parallel.config.strategy'         : 'fixed',
+                'junit.jupiter.execution.parallel.config.fixed.parallelism': System.getProperty("threads","1").toInteger()
+        ]		
+
+/*
+    if (System.getProperty("threads") != null) {
+        systemProperties += [
+                'junit.jupiter.execution.parallel.enabled'                 : true,
+                'junit.jupiter.execution.parallel.mode.default'            : 'concurrent',
+                'junit.jupiter.execution.parallel.mode.classes.default'    : 'concurrent',
+                'junit.jupiter.execution.parallel.config.strategy'         : 'fixed',
+                'junit.jupiter.execution.parallel.config.fixed.parallelism': System.getProperty("threads").toInteger()
+        ]
     }
+*/
+
+
+	
+    }
+

@@ -2,7 +2,7 @@ package ru.rbagmet.configs;
 
 import org.aeonbits.owner.Config;
 
-@Config.Sources("classpath:authorization.properties")
+@Config.Sources("classpath:config/authorization.properties")
 public interface AuthorizeConfig extends Config {
 
     @Key("user.login")
